@@ -4,7 +4,7 @@
 
 <br />
 
-#### By Kevin Davis & Chee Murakami @ [EyeCue Lab](https://www.eyecuelab.com/)
+#### By Chee Murakami & Kevin Davis @ [EyeCue Lab](https://www.eyecuelab.com/)
 
 <hr/>
 
