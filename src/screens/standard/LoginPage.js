@@ -11,7 +11,7 @@ import SvgBrioBack from "../../svg_assets/SvgBrioBack";
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as WebBrowser from "expo-web-browser";
 import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
-import { SPOTIFY_CLIENT_ID } from "@env";
+import { CLIENT_ID_SPOTIFY } from "@env";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -29,7 +29,7 @@ const LoginPage = (props) => {
 
   const [request, response, promptAsync] = useAuthRequest(
     {
-      clientId: SPOTIFY_CLIENT_ID,
+      clientId: CLIENT_ID_SPOTIFY,
       scopes: [
         "user-read-email",
         "playlist-modify-public",
@@ -133,7 +133,7 @@ const LoginPage = (props) => {
           </FieldContainer>
           <BrioContainer>
             <SvgBrioBack />
-            <BrioText>© KD & Chee @EyeCueLab</BrioText>
+            <BrioText>© Chee & KD @EyeCueLab</BrioText>
           </BrioContainer>
         </ScrollView>
       </Container>
