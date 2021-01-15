@@ -1,10 +1,10 @@
 import { makeRedirectUri } from "expo-auth-session";
 import Base64 from "Base64";
-import { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } from "@env";
+import { CLIENT_ID_SPOTIFY, CLIENT_SECRET_SPOTIFY } from "@env";
 
 const SPOTIFY_ENDPOINT = "https://accounts.spotify.com";
 const SPOTIFY_TOKEN_ENDPOINT = `${SPOTIFY_ENDPOINT}/api/token`;
-const encoded = Base64.btoa(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`);
+const encoded = Base64.btoa(`${CLIENT_ID_SPOTIFY}:${CLIENT_SECRET_SPOTIFY}`);
 
 // GET requets
 /**

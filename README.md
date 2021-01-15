@@ -50,7 +50,6 @@ and remove roadblocks that can get in the way of ever starting good habits and d
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------- |
 | :heavy_check_mark: | User is greeted with a landing page sequence to onboard new users                                                          |
 | :heavy_check_mark: | Clicking on the "Get Started" button will bring you to the login page                                                      |
-|                    |
 | :heavy_check_mark: | User will have the option to pick eye color                                                                                |
 | :heavy_check_mark: | User will have the option to choose username                                                                               |
 | :heavy_check_mark: | User will be required to use Spotify to log in to the standard app                                                         |
