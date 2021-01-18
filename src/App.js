@@ -1,14 +1,16 @@
-import React from "react";
-import { StatusBar } from "expo-status-bar";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { store, persistor } from "./rdx/store";
-import LoginPage from "./screens/standard/LoginPage";
-import StandardNavigation from "./screens/standard/StandardNavigation.js";
+import { persistor, store } from "./rdx/store";
+
 import LandingNavigation from "./screens/landing/LandingNavigation.js";
+import { NavigationContainer } from "@react-navigation/native";
+import { PersistGate } from "redux-persist/integration/react";
+import { Provider } from "react-redux";
+import React from "react";
+// import LoginPage from "./screens/standard/LoginPage";
+import RegisterPage from "./screens/standard/RegisterPage";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import StandardNavigation from "./screens/standard/StandardNavigation.js";
+import { StatusBar } from "expo-status-bar";
+import { createStackNavigator } from "@react-navigation/stack";
 
 const RootStack = createStackNavigator();
 
@@ -30,7 +32,8 @@ export default function App() {
                   name="LandingNavigation"
                   component={LandingNavigation}
                 />
-                <RootStack.Screen name="Login" component={LoginPage} />
+                {/* <RootStack.Screen name="Login" component={LoginPage} /> */}
+                <RootStack.Screen name="RegisterPage" component={RegisterPage} />
                 <RootStack.Screen
                   name="StandardNavigation"
                   component={StandardNavigation}
