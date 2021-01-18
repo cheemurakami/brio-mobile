@@ -8,7 +8,7 @@ const GetStartedBtn = (props) => {
   return (
     <>
       <ButtonContainer
-        onPress={() => navigation.navigate("Login")}
+        onPress={() => navigation.navigate("RegisterPage")}
         backgroundColor={props.backgroundColor}
       >
         <ButtonText textColor={props.textColor}>{props.text}</ButtonText>
