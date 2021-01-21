@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { ScrollView } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { connect } from "react-redux";
-import * as actions from "../../rdx/actions";
-import bg from "../../styles/ScreenStyle.js";
-import styled from "styled-components/native";
-import SvgAvatar from "../../svg_assets/SvgAvatar";
-import SvgEyeball from "../../svg_assets/SvgEyeball";
-import SvgBrioBack from "../../svg_assets/SvgBrioBack";
-import Icon from "react-native-vector-icons/FontAwesome";
 import * as WebBrowser from "expo-web-browser";
+import * as actions from "../../rdx/actions";
+
+import React, { useEffect, useState } from "react";
 import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
+
 import { CLIENT_ID_SPOTIFY } from "@env";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { ScrollView } from "react-native";
+import SvgBrioLogin from "../../svg_assets/SvgBrioLogin";
+import SvgEyeball from "../../svg_assets/SvgEyeball";
+import bg from "../../styles/ScreenStyle.js";
+import { connect } from "react-redux";
+import styled from "styled-components/native";
+import { useNavigation } from "@react-navigation/native";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -23,9 +24,9 @@ const discovery = {
 const LoginPage = (props) => {
   const { dispatch, existingUsername, eyeBallColor } = props;
   const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [eyeColor, setEyeColor] = useState("#7E6200");
   const navigation = useNavigation();
-  const eyeColors = ["#51ADE0", "#5EA782", "#BDA41D", "#7E6200", "#BF2F2F"];
 
   const [request, response, promptAsync] = useAuthRequest(
     {
@@ -62,60 +63,19 @@ const LoginPage = (props) => {
     return () => {};
   }, [existingUsername]);
 
-  const usernameInputLabel = () => {
-    if (!existingUsername) {
-      return (
-        <>
-          <UsernameInput
-            onChangeText={(text) => setUsername(text)}
-            value={username}
-            autoCapitalize="none"
-          />
-          <FieldTextContainer>
-            <FieldText>CREATE USERNAME</FieldText>
-          </FieldTextContainer>
-        </>
-      );
-    }
-  };
-
-  const showEyeBallsField = () => {
-    if (!eyeBallColor) {
-      return (
-        <FieldContainer>
-          <EyecolorView>{showEyeBalls()}</EyecolorView>
-          <FieldTextContainer>
-            <FieldText>CHOOSE EYE COLOR</FieldText>
-          </FieldTextContainer>
-        </FieldContainer>
-      );
-    }
-  };
-
-  const showEyeBalls = () => {
-    return eyeColors.map((color, index) => {
-      return (
-        <React.Fragment key={index}>
-          <EyeBallWrapper onPress={() => setEyeColor(color)}>
-            <SvgEyeball eyeColor={color} />
-          </EyeBallWrapper>
-        </React.Fragment>
-      );
-    });
-  };
-
   return (
     <>
       <Container style={bg.basic}>
         <ScrollView>
           <AvatarContainer>
-            <SvgAvatar eyeColor={eyeColor} />
+            <SvgBrioLogin eyeColor={eyeColor} />
             <AvatarNameText>{username}</AvatarNameText>
           </AvatarContainer>
-          {showEyeBallsField()}
-          <FieldContainer>{usernameInputLabel()}</FieldContainer>
-
+        
           <FieldContainer>
+            <FieldTextContainer>
+              <FieldText>LOGIN WITH YOUR SPOTIFY</FieldText>
+            </FieldTextContainer>
             <SpotifyLoginBtn onPress={() => promptAsync()}>
               <TextWrapper>
                 <Icon
@@ -127,14 +87,30 @@ const LoginPage = (props) => {
                 <LoginBtnText>LOGIN</LoginBtnText>
               </TextWrapper>
             </SpotifyLoginBtn>
-            <FieldTextContainer>
-              <FieldText>SYNC YOUR SPOTIFY</FieldText>
-            </FieldTextContainer>
           </FieldContainer>
-          <BrioContainer>
-            <SvgBrioBack />
-            <BrioText>© Chee & KD @EyeCueLab</BrioText>
-          </BrioContainer>
+          
+          <FieldContainer>
+            <FieldTextContainer>
+              <FieldText>LOGIN WITH YOUR EMAIL OR USERNAME</FieldText>
+            </FieldTextContainer>
+            <Input
+              onChangeText={(text) => setUsername(text)}
+              value={username}
+              autoCapitalize="none"
+              placeholder="Email or username"
+            />
+            <Input
+              onChangeText={(text) => setPassword(text)}
+              value={password}
+              autoCapitalize="none"
+              placeholder="Password"
+            />
+            <LoginBtn onPress={() => promptAsync()}>
+              <TextWrapper>
+                <LoginBtnText>LOGIN</LoginBtnText>
+              </TextWrapper>
+            </LoginBtn>
+          </FieldContainer>
         </ScrollView>
       </Container>
     </>
@@ -156,10 +132,11 @@ const AvatarNameText = styled.Text`
   font-size: 28px;
   font-weight: 900;
 `;
-const UsernameInput = styled.TextInput`
+const Input = styled.TextInput`
   width: 90%;
   height: 50;
   padding: 10px;
+  margin-bottom: 10px;
   border-radius: 10;
   background-color: white;
 `;
@@ -168,23 +145,12 @@ const FieldContainer = styled.View`
   margin-left: 24;
 `;
 const FieldTextContainer = styled.View`
-  margin-top: 8;
+  margin-bottom: 8px;
 `;
 const FieldText = styled.Text`
   color: #dea768;
   font-size: 10px;
   font-weight: 900;
-`;
-const EyecolorView = styled.View`
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  width: 90%;
-  height: 55px;
-  padding: 10px;
-  border-radius: 10;
-  background-color: white;
-  margin-top: 8;
 `;
 const TextWrapper = styled.View`
   flex-direction: row;
@@ -202,24 +168,24 @@ const SpotifyLoginBtn = styled.TouchableHighlight.attrs({
   background-color: #1ed760;
   margin-top: 8;
 `;
+const LoginBtn = styled.TouchableHighlight.attrs({
+  underlayColor: "#02c39a",
+})`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 55px;
+  padding: 10px;
+  border-radius: 10;
+  background-color: #94d7b5;
+  margin-top: 8;
+`;
 const LoginBtnText = styled.Text`
   color: white;
   font-size: 18px;
   font-weight: 900;
 `;
-const BrioContainer = styled.View`
-  margin-top: 12;
-  align-items: center;
-  justify-content: center;
-`;
-const BrioText = styled.Text`
-  color: #dea768;
-  font-size: 12px;
-  font-weight: 900;
-`;
-const EyeBallWrapper = styled.TouchableHighlight.attrs({
-  underlayColor: "white",
-})``;
 const mapStateToProps = (state) => {
   return {
     existingUsername: state.user.username,
