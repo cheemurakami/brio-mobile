@@ -1,10 +1,53 @@
+import * as WebBrowser from "expo-web-browser";
+import * as actions from "../../rdx/actions";
+
+import React, {useEffect} from "react";
+import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
+
+import { CLIENT_ID_SPOTIFY } from "@env";
 import Icon from "react-native-vector-icons/FontAwesome";
-import React from "react";
 import SvgBrioRegister from "../../svg_assets/SvgBrioRegister";
 import bg from "../../styles/ScreenStyle.js";
+import { connect } from "react-redux";
 import styled from "styled-components/native";
+import { useNavigation } from "@react-navigation/native";
 
-export const RegisterPage = () => {
+WebBrowser.maybeCompleteAuthSession();
+
+const discovery = {
+  authorizationEndpoint: "https://accounts.spotify.com/authorize",
+  tokenEndpoint: "https://accounts.spotify.com/api/token",
+};
+
+const RegisterPage = (props) => {
+  const { dispatch } = props;
+  const navigation = useNavigation();
+
+  const [request, response, promptAsync] = useAuthRequest(
+    {
+      clientId: CLIENT_ID_SPOTIFY,
+      scopes: [
+        "user-read-email",
+        "playlist-modify-public",
+        "user-read-recently-played",
+      ],
+      usePKCE: false,
+      redirectUri: makeRedirectUri({
+        native: "brio-mobile://redirect",
+      }),
+    },
+    discovery
+  );
+  
+  useEffect(() => {
+    if (response?.type === "success") {
+      const { code } = response.params;
+      const action = actions.loggedIn(code);
+      dispatch(action);
+      navigation.navigate("StandardNavigation");
+    }
+  }, [response]);
+
   return (
     <Container style={bg.basic}>
       <BrioContainer>
@@ -32,16 +75,19 @@ export const RegisterPage = () => {
           onChangeText={() => console.log("Email")}
           value={""}
           autoCapitalize="none"
+          placeholder="Email address"
         />
         <InputField
           onChangeText={() => console.log("Password")}
           value={""}
           autoCapitalize="none"
+          placeholder="Create password"
         />
         <InputField
           onChangeText={() => console.log("Confirm Password")}
           value={""}
           autoCapitalize="none"
+          placeholder="Confirm password"
         />
 
         <CreateBtn onPress={() => console.log("CreateBtn")}>
@@ -121,4 +167,5 @@ const BtnText = styled.Text`
   font-weight: 900;
 `;
 
-export default RegisterPage;
+const RegisterPageConnected = connect()(RegisterPage)
+export default RegisterPageConnected;
