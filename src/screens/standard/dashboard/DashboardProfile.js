@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 import { Button } from "react-native-paper";
 import { ScrollView } from "react-native";
-import SvgAvatar from "../../../svg_assets/SvgAvatar";
+import SvgBrioAvatar from "../../../svg_assets/SvgBrioAvatar";
 import SvgEyeball from "../../../svg_assets/SvgEyeball";
 import bg from "../../../styles/ScreenStyle";
 import { connect } from "react-redux";
@@ -91,7 +91,7 @@ export const DashboardProfile = (props) => {
       <ScrollView>
         <Container style={bg.basic}>
           <AvatarContainer>
-            <SvgAvatar eyeColor={eyeColor} />
+            <SvgBrioAvatar eyeColor={eyeColor} />
             {showUsername()}
           </AvatarContainer>
 
