@@ -89,7 +89,7 @@ export default function SvgArrowExercise(){
   </defs>
   </svg>  
   `;
-  const SvgImage = () => <SvgXml xml={svgMarkup} width="100px" />;  
+  const SvgImage = () => <SvgXml xml={svgMarkup} width="100%" />;  
 
   return <SvgImage />;
 }
