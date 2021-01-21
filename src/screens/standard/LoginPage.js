@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { ScrollView } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { connect } from "react-redux";
-import * as actions from "../../rdx/actions";
-import bg from "../../styles/ScreenStyle.js";
-import styled from "styled-components/native";
-import SvgAvatar from "../../svg_assets/SvgAvatar";
-import SvgEyeball from "../../svg_assets/SvgEyeball";
-import SvgBrioBack from "../../svg_assets/SvgBrioBack";
-import Icon from "react-native-vector-icons/FontAwesome";
 import * as WebBrowser from "expo-web-browser";
+import * as actions from "../../rdx/actions";
+
+import React, { useEffect, useState } from "react";
 import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
+
 import { CLIENT_ID_SPOTIFY } from "@env";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { ScrollView } from "react-native";
+import SvgBrioBack from "../../svg_assets/SvgBrioBack";
+import SvgBrioLogin from "../../svg_assets/SvgBrioLogin";
+import SvgEyeball from "../../svg_assets/SvgEyeball";
+import bg from "../../styles/ScreenStyle.js";
+import { connect } from "react-redux";
+import styled from "styled-components/native";
+import { useNavigation } from "@react-navigation/native";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -109,7 +111,7 @@ const LoginPage = (props) => {
       <Container style={bg.basic}>
         <ScrollView>
           <AvatarContainer>
-            <SvgAvatar eyeColor={eyeColor} />
+            <SvgBrioLogin eyeColor={eyeColor} />
             <AvatarNameText>{username}</AvatarNameText>
           </AvatarContainer>
           {showEyeBallsField()}
