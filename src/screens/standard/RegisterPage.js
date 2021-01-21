@@ -1,7 +1,7 @@
 import * as WebBrowser from "expo-web-browser";
 import * as actions from "../../rdx/actions";
 
-import React, {useEffect} from "react";
+import React, { useEffect, useState } from "react";
 import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
 
 import { CLIENT_ID_SPOTIFY } from "@env";
@@ -22,7 +22,9 @@ const discovery = {
 const RegisterPage = (props) => {
   const { dispatch } = props;
   const navigation = useNavigation();
-
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [comfirmPassword, setConfirmPassword] = useState("");
   const [request, response, promptAsync] = useAuthRequest(
     {
       clientId: CLIENT_ID_SPOTIFY,
@@ -38,7 +40,7 @@ const RegisterPage = (props) => {
     },
     discovery
   );
-  
+
   useEffect(() => {
     if (response?.type === "success") {
       const { code } = response.params;
@@ -72,20 +74,20 @@ const RegisterPage = (props) => {
           <FieldText>OR SIGNUP WITH YOUR EMAIL</FieldText>
         </FieldTextContainer>
         <InputField
-          onChangeText={() => console.log("Email")}
-          value={""}
+          onChangeText={(text) => setEmail(text)}
+          value={email}
           autoCapitalize="none"
           placeholder="Email address"
         />
         <InputField
-          onChangeText={() => console.log("Password")}
-          value={""}
+          onChangeText={(text) => setPassword(text)}
+          value={password}
           autoCapitalize="none"
           placeholder="Create password"
         />
         <InputField
-          onChangeText={() => console.log("Confirm Password")}
-          value={""}
+          onChangeText={(text) => setConfirmPassword(text)}
+          value={comfirmPassword}
           autoCapitalize="none"
           placeholder="Confirm password"
         />
@@ -167,5 +169,5 @@ const BtnText = styled.Text`
   font-weight: 900;
 `;
 
-const RegisterPageConnected = connect()(RegisterPage)
+const RegisterPageConnected = connect()(RegisterPage);
 export default RegisterPageConnected;
