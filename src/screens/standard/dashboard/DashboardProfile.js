@@ -1,12 +1,14 @@
-import React, { useState } from "react";
-import { ScrollView } from "react-native";
-import { connect } from "react-redux";
 import * as actions from "../../../rdx/actions";
+
+import React, { useState } from "react";
+
 import { Button } from "react-native-paper";
-import styled from "styled-components/native";
-import bg from "../../../styles/ScreenStyle";
+import { ScrollView } from "react-native";
 import SvgAvatar from "../../../svg_assets/SvgAvatar";
 import SvgEyeball from "../../../svg_assets/SvgEyeball";
+import bg from "../../../styles/ScreenStyle";
+import { connect } from "react-redux";
+import styled from "styled-components/native";
 import { useNavigation } from "@react-navigation/native";
 
 export const DashboardProfile = (props) => {
@@ -16,7 +18,7 @@ export const DashboardProfile = (props) => {
   const [usernameBtnText, setUsernameBtnText] = useState("Change username");
   const [eyeColor, setEyeColor] = useState(eyeBallColor || "#7E6200");
   const navigation = useNavigation();
-  const eyeColors = ["#51ADE0", "#5EA782", "#BDA41D", "#7E6200", "#BF2F2F"];
+  const eyeColors = ["#51ADE0", "#5EA782", "#7E6200", "#C2BBF0", "#FF99C9"];
 
   const logoutButton = () => {
     const action = actions.logoutButton();
